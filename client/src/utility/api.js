@@ -98,3 +98,71 @@ export const getAllUsers = async({page, limit}) => {
 
   return responseData
 }
+
+
+export const getAllFlashcardSets = async({page, limit}) => {
+
+  // build the query string
+  let query
+  
+  if (page) {
+    query = `page=${page}`
+  }
+
+  if (limit) {
+    query = `${query}&limit=${limit}`
+  }
+
+  const response = await fetch(`${baseUrl}/flashcardSets?${query}`, {
+    method: "GET",
+  })
+
+  const responseData = await response.json()
+
+  if (!response.ok) {
+    throw new Error(`Status Code: ${response?.status} - ${responseData?.message}`)
+  }
+
+  return responseData
+}
+
+export const getAllCards = async({page, limit}) => {
+
+  // build the query string
+  let query
+  
+  if (page) {
+    query = `page=${page}`
+  }
+
+  if (limit) {
+    query = `${query}&limit=${limit}`
+  }
+
+  const response = await fetch(`${baseUrl}/flashcards?${query}`, {
+    method: "GET",
+  })
+
+  const responseData = await response.json()
+
+  if (!response.ok) {
+    throw new Error(`Status Code: ${response?.status} - ${responseData?.message}`)
+  }
+
+  return responseData
+}
+
+export const getFlashcardId = async(id) => {
+
+  const response = await fetch(`${baseUrl}/flashcards/${id}`, {
+    method: "GET",
+  })
+
+  const responseData = await response.json()
+
+  if (!response.ok) {
+    throw new Error(`Status Code: ${response?.status} - ${responseData?.message}`)
+  }
+
+  return responseData
+}
