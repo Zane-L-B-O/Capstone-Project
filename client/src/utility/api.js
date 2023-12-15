@@ -152,9 +152,9 @@ export const getAllCards = async({page, limit}) => {
   return responseData
 }
 
-export const getFlashcardId = async(id) => {
+export const getFlashcardFkId = async(id) => {
 
-  const response = await fetch(`${baseUrl}/flashcards/${id}`, {
+  const response = await fetch(`${baseUrl}/flashcards/fk/${id}`, {
     method: "GET",
   })
 

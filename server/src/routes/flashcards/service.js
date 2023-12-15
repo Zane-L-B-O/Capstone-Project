@@ -29,11 +29,9 @@ exports.findAll = async ({page = 0, limit}) => {
     return flashcard
   }
   exports.findByFk = async (id) => {
-
-    const flashcard = await knex('flashcards')
-    .select("*")
+    const flashcardSet = await knex('flashcards')
     .where('flashcardSetId', id)
-      
+    .select('*')
   
-    return flashcard
+    return flashcardSet
   }
