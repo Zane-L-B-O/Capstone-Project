@@ -1,10 +1,10 @@
-import { Card, Grid } from '@mui/material'
+import { Button, Card, Grid } from '@mui/material'
 import { Link } from "react-router-dom"
 import {useState, useEffect, Fragment} from 'react'
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { getAllCards, getAllFlashcardSets } from '../../utility/api';
+import { getAllFlashcardSets } from '../../utility/api';
 import Pagination from '@mui/material/Pagination';
 // ** Material UI
 
@@ -43,7 +43,10 @@ function Home (props) {
   
   return (
     <Fragment>
-       <Grid container direction="row" justifyContent="space-around" alignItems="flex-start" >
+      <Card>
+      <CardMedia title={'Quiz Button'}/>
+      </Card>
+       <Grid container direction="row" justifyContent="space-around" alignItems="center" gap={2} >
           {data.map((element) => {
               return (
                 <Grid item xs={4}>

@@ -1,7 +1,7 @@
 const knex = require('../../knex.js')
 
 exports.findAll = async ({page = 0, limit}) => {
-    const data = await knex('flashcardSets')
+    const data = await knex('questions')
       .select("*")
       .modify((queryBuilder) => {
         // conditionally add pagination only if a limit is set
@@ -11,7 +11,7 @@ exports.findAll = async ({page = 0, limit}) => {
         }
       })
 
-    const total = await knex('flashcardSets').count('id')
+    const total = await knex('questions').count('id')
       .then((result) => {
         return result[0].count
       })
@@ -22,9 +22,16 @@ exports.findAll = async ({page = 0, limit}) => {
 
   exports.findById = async (id) => {
 
-    const pack = await knex('flashcardSets')
+    const question = await knex('questions')
       .where('id', id)
       .first('*')
   
-    return pack
+    return question
+  }
+  exports.findByFk = async (id) => {
+    const quizQuestions = await knex('questions')
+    .where('quizId', id)
+    .select('*')
+  
+    return quizQuestions
   }
