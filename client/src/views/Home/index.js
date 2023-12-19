@@ -1,4 +1,4 @@
-import { Button, Card, Grid } from '@mui/material'
+import { Card, Grid } from '@mui/material'
 import { Link } from "react-router-dom"
 import {useState, useEffect, Fragment} from 'react'
 import CardContent from '@mui/material/CardContent';
@@ -43,9 +43,10 @@ function Home (props) {
   
   return (
     <Fragment>
-      <Card>
-      <CardMedia title={'Quiz Button'}/>
-      </Card>
+       <Link to="/card-creation" className="card-creation-button">Create</Link>
+       <br/>
+       <Typography variant={"h4"}>Home</Typography>
+       <br/>
        <Grid container direction="row" justifyContent="space-around" alignItems="center" gap={2} >
           {data.map((element) => {
               return (

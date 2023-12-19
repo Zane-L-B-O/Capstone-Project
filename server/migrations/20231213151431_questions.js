@@ -7,7 +7,7 @@ exports.up = function(knex) {
         table.increments('id').notNullable()
         table.string('name')
         table.text('description')
-        table.integer('quizId').references('id').inTable('quizzes').notNullable()
+        table.integer('quizId').references('id').inTable('quizzes').notNullable().onDelete('CASCADE')
         table.string('image')
         table.string('correctAnswer')
         table.string('incorrectAnswer1')

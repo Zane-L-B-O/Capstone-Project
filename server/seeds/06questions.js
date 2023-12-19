@@ -19,4 +19,5 @@ exports.seed = async function(knex) {
     {id: 11, name: 'Question 3', description: 'Which is a sepcies that you dont want to get stung by no matter what?', quizId: 3, image: 'egg', correctAnswer: 'bullet ant', incorrectAnswer1: 'fire ant', incorrectAnswer2: 'sugar ant', incorrectAnswer3: 'bull ant'},
     {id: 12, name: 'Question 4', description: 'Which is a highly agressive species?', quizId: 3, image: 'egg', correctAnswer: 'bull ant', incorrectAnswer1: 'fire ant', incorrectAnswer2: 'sugar ant', incorrectAnswer3: 'bullet ant'},
   ]);
+  await knex.raw('ALTER SEQUENCE questions_id_seq RESTART WITH 13')
 };

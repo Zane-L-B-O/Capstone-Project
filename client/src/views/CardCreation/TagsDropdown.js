@@ -20,11 +20,11 @@ const MenuProps = {
 };
 
 const tags = [
-  'Food',
-  'Drinks',
-  'Animals',
-  'Random Facts',
-  'Interesting Facts',
+  {id: 1, label: 'Food'}, 
+  {id: 2, label: 'Drinks'},
+  {id: 3, label: 'Animals'},
+  {id: 4, label: 'Random Facts'},
+  {id: 5, label: 'Interesting Facts'}
 ];
 
 function getStyles(tag, selectedTags, theme) {
@@ -67,7 +67,7 @@ export default function MultipleSelectChip(props) {
           renderValue={(selected) => (
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
               {selected.map((value) => (
-                <Chip key={value} label={value} />
+                <Chip key={value.id} label={value.label} />
               ))}
             </Box>
           )}
@@ -75,11 +75,11 @@ export default function MultipleSelectChip(props) {
         >
           {tags.map((tag) => (
             <MenuItem
-              key={tag}
+              key={tag.id}
               value={tag}
-              style={getStyles(tag, selectedTags, theme)}
+              style={getStyles(tag.label, selectedTags, theme)}
             >
-              {tag}
+              {tag.label}
             </MenuItem>
           ))}
         </Select>

@@ -3,23 +3,31 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
-import {useState, useEffect, Fragment} from 'react';
+import {useState, Fragment} from 'react';
 import TagsDropdown from './TagsDropdown'
+import { createSet } from '../../utility/api';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { useNavigate, Link } from 'react-router-dom';
+
 //** Setup (define helper functions and variables here)
 
 function CardCreation(props) {
     //** Destructure Props
-    const {
-  
-    } = props
+
   
     //** State Variables
+    const navigate = useNavigate()
     const [formFields, setFormFields] = useState([
         { name: '', description: '' },
       ])
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [selectedTags, setSelectedTags] = useState([]); // keeps track of what is selected by the user
+    const [open, setOpen] = useState(false)
     //** Component Logic
     function handleClick() {
         const formOutput = {
@@ -31,6 +39,10 @@ function CardCreation(props) {
         console.log("formOutput: ", formOutput)
         // send a POST request using fetch to the api. 
         // The api will add the set to the database
+        createSet(formOutput)
+          .then(() => {
+            setOpen(true)
+          })
       }
 
     const handleFormChange = (event, index) => {
@@ -54,8 +66,40 @@ function CardCreation(props) {
         setFormFields(data)
       }
 
+      const handleClose = () => {
+        navigate('/')
+        setOpen(false);
+      }
+
+    if(open){
+      return(
+        <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Flashcard Set Created"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Good Job now view it.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} autoFocus>
+            View
+          </Button>
+        </DialogActions>
+      </Dialog>
+      )
+    }
+      
     //** Return JSX
     return (
+      <Fragment>
+      <Link to="/" className="home-button">Home</Link>
       <Grid
         container
         direction="column"
@@ -114,6 +158,7 @@ function CardCreation(props) {
        {/* Submit Button */}
        <Button onClick={handleClick} variant="contained">Submit</Button>
       </Grid>
+      </Fragment>
     )
   }
   export default CardCreation

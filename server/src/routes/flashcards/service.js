@@ -35,3 +35,21 @@ exports.findAll = async ({page = 0, limit}) => {
   
     return flashcardSet
   }
+
+  exports.insert = async (data) => {
+  
+    // destructure title and description
+    const {name, description, flashcardSetId, image} = data
+  
+    // Insert the card set into the database and return
+    const result = await knex('flashcards').insert({
+      name: name,
+      description: description,
+      flashcardSetId: flashcardSetId,
+      image: image
+    }).returning(['id', 'name', 'description', 'flashcardSetId', 'image']) // return the data
+    
+    return result
+  }
+
+  

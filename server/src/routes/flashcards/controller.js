@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 
-const { findAll, findById, findByFk} = require('./service')
+const { findAll, findById, findByFk, insert} = require('./service')
 
 exports.showAll = async (req, res) => {
     try {
@@ -66,5 +66,19 @@ exports.showAll = async (req, res) => {
     } catch (error) {
       console.log(error)
       return res.status(500).json({message: 'Internal Server Error'})
+    }
+  }
+
+  exports.register = async (req, res) => {
+    try {
+  
+      const setData = req.body
+  
+      const set = await insert(setData)
+      
+    } catch (error) {
+      console.log(error)
+  
+      return res.status(500).json({ message: "Internal Server Error" })
     }
   }

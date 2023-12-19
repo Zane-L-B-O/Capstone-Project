@@ -10,4 +10,5 @@ exports.seed = async function(knex) {
     {id: 2, title: 'drinks', description: 'igpayigpayatilay'},
     {id: 3, title: 'ants', description: 'igpayigpayatilay'}
   ]);
+  await knex.raw('ALTER SEQUENCE "flashcardSets_id_seq" RESTART WITH 4')
 };

@@ -10,4 +10,5 @@ exports.seed = async function(knex) {
     {id: 2, colName: 'rowValue2'},
     {id: 3, colName: 'rowValue3'}
   ]);
+  await knex.raw('ALTER SEQUENCE "tagQuizzes_id_seq" RESTART WITH 4')
 };

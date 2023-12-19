@@ -7,7 +7,11 @@ exports.up = function(knex) {
         table.increments('id').notNullable()
         table.text('name')
         table.text('description')
-        table.integer('flashcardSetId').references('id').inTable('flashcardSets').notNullable()
+        table.integer('flashcardSetId')
+            .references('id')
+            .inTable('flashcardSets')
+            .notNullable()
+            .onDelete('CASCADE')
         table.string('image')
       })
 };

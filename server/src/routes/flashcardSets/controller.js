@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 
-const { findAll, findById } = require('./service')
+const { findAll, findById, insert, insertFlashcards, insertTags } = require('./service')
 
 exports.showAll = async (req, res) => {
     try {
@@ -44,5 +44,24 @@ exports.showAll = async (req, res) => {
     } catch (error) {
       console.log(error)
       return res.status(500).json({message: 'Internal Server Error'})
+    }
+  }
+
+  exports.create = async (req, res) => {
+    try {
+  
+      const setData = req.body
+      console.log(setData)
+      const set = await insert(setData)
+      console.log(set)
+      const cards = await insertFlashcards(setData.flashcards, set.id)
+      // console.log("cards: ", cards)
+      const tags = await insertTags(setData.tags, set.id)
+      console.log(tags)
+      return res.status(201).json({message: "Created"})
+    } catch (error) {
+      console.log(error)
+  
+      return res.status(500).json({ message: "Internal Server Error" })
     }
   }

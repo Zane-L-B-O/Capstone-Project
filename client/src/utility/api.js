@@ -166,3 +166,37 @@ export const getFlashcardFkId = async(id) => {
 
   return responseData
 }
+
+export const createSet = async(data) => {
+
+  const response = await fetch(`${baseUrl}/flashcardSets/`, {
+    method: "POST", 
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(data),
+  })
+
+  const responseData = await response.json()
+
+  if (!response.ok) {
+    throw new Error(`Status Code: ${response?.status} - ${responseData?.message}`)
+  }
+
+  return responseData
+}
+
+export const createCards = async(data) => {
+
+  const response = await fetch(`${baseUrl}/flashcards/register`, {
+    method: "POST", 
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(data),
+  })
+
+  const responseData = await response.json()
+
+  if (!response.ok) {
+    throw new Error(`Status Code: ${response?.status} - ${responseData?.message}`)
+  }
+
+  return responseData
+}

@@ -1,15 +1,13 @@
-import { Card, Grid } from '@mui/material'
-import {useState, useEffect,} from 'react'
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
+import { Grid } from '@mui/material'
+import {useState, useEffect, Fragment,} from 'react'
+import { getFlashcardFkId } from '../../utility/api';
 import Typography from '@mui/material/Typography';
-import {  getFlashcardFkId } from '../../utility/api';
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
+import Flashcard from './Flashcard';
 // ** Material UI
 
 
 function CardDetails (props) {
-  
   const [data, setData] = useState(null);
   const {id} = useParams()
  
@@ -34,29 +32,26 @@ function CardDetails (props) {
       )
   }
   return (
-    <Grid container direction="row" justifyContent="space-around" alignItems="flex-start" >
+    <Fragment>
+    <Link to="/" className="home-button">Home</Link>
+    <br/>
+    <Link to="/card-creation" className="card-creation-button">Create</Link>
+    <Typography variant={"h4"}>Flashcards</Typography>
+    <br/>
+    <Grid container direction="row" justifyContent="space-around" alignItems="flex-start" gap={2} >
         {data.map((element) => {
             return (
             <Grid item xs={4}>
-                <Card>
-                    <CardMedia
-                      sx={{ height: 140 }}
-                      title={element.name}
-                      imaage={element.image}
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant="h6" component="div">
-                        Id:{element.id}(Set Id:{element.flashcardSetId}) {element.name}
-                        </Typography>
-                        <Typography>
-                            {element.description}
-                        </Typography>
-                    </CardContent>
-                    </Card>
-                </Grid>
-              )
+              <Flashcard
+              name={element.name}
+              description={element.description}
+              image={element.image}
+              />  
+            </Grid>
+          )
           })}
-        </Grid>      
+        </Grid> 
+        </Fragment>     
   )
 }
 

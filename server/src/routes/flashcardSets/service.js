@@ -28,3 +28,42 @@ exports.findAll = async ({page = 0, limit}) => {
   
     return pack
   }
+  
+  exports.insert = async (data) => {
+  
+    // destructure title and description
+    const {title, description} = data
+  
+    // Insert the card set into the database and return
+    const result = await knex('flashcardSets').insert({
+      title: title,
+      description: description 
+    }).returning(['id', 'title', 'description']) // return the data
+    
+    return result[0]
+  }
+
+  exports.insertFlashcards = async (data, id) => {
+    // console.log("insertFlashcards: ", data, "id:", id)
+    const results = await knex('flashcards').insert(data.map((element) => {
+      // console.log(element)
+      return {
+        name: element.name,
+        description: element.description,
+        flashcardSetId: id
+      }
+    })) 
+    // console.log('results: ', results)
+  }
+
+  exports.insertTags = async (data, id) => {
+    console.log(data)
+    const results = await knex('tagSets').insert(data.map((element) => {
+      console.log('insertTags loop value of element: ', element)
+      return {
+        flashcardSetId: id, 
+        tagId: element.id
+      }
+    }))
+    console.log(results)
+  }
